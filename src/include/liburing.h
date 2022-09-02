@@ -1045,6 +1045,20 @@ static inline void io_uring_prep_socket_direct_alloc(struct io_uring_sqe *sqe,
 	__io_uring_set_target_fixed_file(sqe, IORING_FILE_INDEX_ALLOC - 1);
 }
 
+static inline void io_uring_prep_clone(struct io_uring_sqe *sqe)
+{
+	io_uring_prep_rw(IORING_OP_CLONE, sqe, 0, NULL, 0, 0);
+}
+
+static inline void io_uring_prep_exec(struct io_uring_sqe *sqe,
+				const char *filename, char *const *argv,
+                                char *const *envp)
+{
+	io_uring_prep_rw(IORING_OP_EXEC, sqe, 0, filename, 0, 0);
+	sqe->addr2 = (unsigned long)(void *)argv;
+	sqe->addr3 = (unsigned long)(void *)envp;
+}
+
 /*
  * Returns number of unconsumed (if SQPOLL) or unsubmitted entries exist in
  * the SQ ring

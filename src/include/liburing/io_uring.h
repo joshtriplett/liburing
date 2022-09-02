@@ -214,6 +214,8 @@ enum io_uring_op {
 	IORING_OP_URING_CMD,
 	IORING_OP_SEND_ZC,
 	IORING_OP_SENDMSG_ZC,
+	IORING_OP_CLONE,
+	IORING_OP_EXEC,
 
 	/* this goes last, obviously */
 	IORING_OP_LAST,
